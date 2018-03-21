@@ -541,11 +541,11 @@ std::string DefaultTempDirectory() {
   for (int i=0; vars[i]; ++i) {
     char *val =
 #if defined(_GNU_SOURCE)
-#if __GLIBC_PREREQ(2,17)
+#if defined(HAVE_SECURE_GETENV) && HAVE_SECURE_GETENV
       secure_getenv
-#else // __GLIBC_PREREQ
+#else // HAVE_SECURE_GETENV
       getenv
-#endif // __GLIBC_PREREQ
+#endif // HAVE_SECURE_GETENV
 #else // _GNU_SOURCE
       getenv
 #endif
